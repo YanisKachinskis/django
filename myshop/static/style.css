@@ -265,6 +265,7 @@ html, body {
 	height: 270px;
 	width: 270px;
 	position: relative;
+	margin-right: 120px;
 }
 .tab-content a .text {
 	display: none;

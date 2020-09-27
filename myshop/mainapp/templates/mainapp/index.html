@@ -10,6 +10,7 @@
 			<h3 class="green">тенденции</h3>
 			<h3 class="big"> удобные стулья</h3>
 			<p>{{ slogan|title }}</p>
+			<p>{{ test|title }}</p>
 			<a href="#" class="button-order">заказать <img src="{% static "img/arrow.png" %}" alt=""></a>
 		</div>
 		<div class="navi">
@@ -26,24 +27,7 @@
 		<div class="clearfix">
 		</div>
 		<div class="tab-content">
-			<div class="block">
-				<a href="#"><img src="{% static "img/product-1.jpg" %}" alt="">
-					<div class="text">
-						<img src="{% static "img/icon-hover.png" %}" alt="img">
-						<h4>Отличный стул</h4>
-						<p>Расположитесь комфортно. </p>
-					</div>
-				</a>
-			</div>
-			<div class="block">
-				<a href="#"><img src="{% static "img/product-2.jpg" %}" alt="">
-					<div class="text">
-						<img src="{% static "img/icon-hover.png" %}" alt="">
-						<h4>Стул повышенного качества</h4>
-						<p>Не оторваться. </p>
-					</div>
-				</a>
-			</div>
+			{% include 'mainapp/includes/inc_popular_products.html' %}
 		</div>
 	</div>
 {% endblock %}
