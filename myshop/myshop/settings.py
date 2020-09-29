@@ -124,6 +124,10 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
 )
 
+MEDIA_URL = '/media/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 ALLOWED_HOSTS = [
     '192.168.1.192',
     'localhost',
