@@ -29,9 +29,9 @@ def main(request):
 
 def products(request, pk=None):
     links_menu = ProductCategory.objects.all()
-    related_products_1 = Product.objects.filter(category_id=1)
-    related_products_2 = Product.objects.filter(category_id=2)
-    related_products_3 = Product.objects.filter(category_id=3)
+    related_products_1 = Product.objects.filter(category_id='1')
+    related_products_2 = Product.objects.filter(category_id='2')
+    related_products_3 = Product.objects.filter(category_id='3')
     content = {
         'links_menu': links_menu,
         'title': 'продукты',
