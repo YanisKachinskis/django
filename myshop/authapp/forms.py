@@ -10,7 +10,7 @@ class ShopUserLoginForm(AuthenticationForm):
         fields = ('username', 'password')
 
     def __init__(self, *args, **kwargs):
-        super(ShopUserLoginForm, self).__init__(*args, *kwargs)
+        super(ShopUserLoginForm, self).__init__(*args, **kwargs)
         for field_name, field in self.fields.items():
             field.widget.attrs['class'] = "form-control"
             field.help_text = ''
@@ -22,7 +22,7 @@ class ShopUserRegisterForm(UserCreationForm):
         fields = ('username', 'first_name', 'password1', 'password2', 'email', 'avatar', 'age')
 
     def __init__(self, *args, **kwargs):
-        super(ShopUserRegisterForm, self).__init__(*args, *kwargs)
+        super(ShopUserRegisterForm, self).__init__(*args, **kwargs)
         for field_name, field in self.fields.items():
             field.widget.attrs['class'] = "form-control"
             field.help_text = ''
@@ -41,7 +41,7 @@ class ShopUserEditForm(UserChangeForm):
         fields = ('username', 'first_name', 'avatar', 'age')
 
     def __init__(self, *args, **kwargs):
-        super(ShopUserEditForm, self).__init__(*args, *kwargs)
+        super(ShopUserEditForm, self).__init__(*args, **kwargs)
         for field_name, field in self.fields.items():
             field.widget.attrs['class'] = "form-control"
             field.help_text = ''
