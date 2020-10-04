@@ -1,4 +1,9 @@
 <ul class="links-menu">
+    <li>
+        <a href="{% url 'products:category' 0 %}">
+            все
+        </a>
+    </li>
     {% for item in links_menu %}
         <li><a
                 href="{% url 'products:category' item.pk %}"

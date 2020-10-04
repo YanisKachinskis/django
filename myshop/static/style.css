@@ -1071,3 +1071,42 @@ td:first-child {
 .related-products a:hover .text{
 	display: block;
 }
+
+.basket {
+	display: block;
+	width: 23px;
+	height: 23px;
+	background-image: url("/static/img/basket.png");
+	background-repeat: no-repeat;
+	position: absolute;
+	top: 63px;
+	left: 1210px;
+	text-decoration: none;
+	color: #555;
+}
+
+.search {
+	display: block;
+	width: 23px;
+	height: 23px;
+	background-image: url("/static/img/search.png");
+	background-repeat: no-repeat;
+	position: absolute;
+	top: 63px;
+	left: 1170px;
+	text-decoration: none;
+	color: #555;
+}
+
+.summa {
+	display: block;
+	width: 23px;
+	height: 23px;
+	background-repeat: no-repeat;
+	position: absolute;
+	top: 67px;
+	left: 1260px;
+	text-decoration: none;
+	color: red;
+	font-weight: bold;
+}
