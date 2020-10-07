@@ -1,41 +1,43 @@
 import json
 import os
+import random
 
 from django.shortcuts import render, get_object_or_404
 
 from basketapp.models import Basket
 from mainapp.models import *
-from myshop.settings import BASE_DIR
 
 
-# Create your views here.
+def get_basket(user):
+    if user.is_authenticated:
+        return Basket.objects.filter(user=user)
+    return []
+
+
+def get_hot_product():
+    products_list = Product.objects.all()
+    return random.sample(list(products_list), 1)[0]
+
+
+def get_related_products(hot_product):
+    related_products = Product.objects.filter(category_id=hot_product.category_id).exclude(pk=hot_product.pk)[:3]
+    return related_products
 
 
 def main(request):
     slogan = 'Новый уровень комфорта. Отличные характеристики.'
-    products_list = Product.objects.all()[:3]
 
     content = {
-        'products_list': products_list,
         'slogan': slogan,
-        'title': 'главная'
+        'title': 'главная',
+        'basket': get_basket(request.user),
+        'products_list': Product.objects.all()[:3]
     }
     return render(request, 'mainapp/index.html', content)
 
 
 def products(request, pk=None):
     links_menu = ProductCategory.objects.all()
-
-    baskets = Basket.objects.filter(user=request.user)
-    basket_quantity = Basket.objects.filter(user=request.user).values('quantity')
-
-    final_price = 0
-    for basket in baskets:
-        final_price += (Product.objects.get(id=basket.__dict__['product_id']).__dict__['price'] * basket.__dict__['quantity'])
-
-    sum_bask = 0
-    for item in list(basket_quantity):
-        sum_bask = sum_bask + item['quantity']
 
     if pk is not None:
         if pk == 0:
@@ -50,20 +52,20 @@ def products(request, pk=None):
             'title': 'продукты',
             'products': all_products,
             'category': category,
-            'basket': baskets,
-            'sum_bask': sum_bask,
-            'final_price': final_price
+            'basket': get_basket(request.user),
         }
 
         return render(request, 'mainapp/product_list.html', content)
-    related_products = Product.objects.filter(price__lt=4000).order_by('price')[:3]
+
+    hot_product = get_hot_product()
+    related_products = get_related_products(hot_product)
+
     content = {
         'links_menu': links_menu,
         'title': 'продукты',
+        'hot_product': hot_product,
         'related_products': related_products,
-        'basket': baskets,
-        'sum_bask': sum_bask,
-        'final_price': final_price
+        'basket': get_basket(request.user),
     }
     return render(request, 'mainapp/products.html', content)
 
@@ -72,6 +74,21 @@ def contact(request):
     shop_list = Shop.objects.all()
     content = {
         'title': 'контакты',
-        'shop_list': shop_list
+        'shop_list': shop_list,
+        'basket': get_basket(request.user),
     }
     return render(request, 'mainapp/contact.html', content)
+
+
+def product(request, pk):
+    product_item = get_object_or_404(Product, pk=pk)
+    links_menu = ProductCategory.objects.all()
+
+    content = {
+        'product': product_item,
+        'title': 'товар',
+        'links_menu': links_menu,
+        'basket': get_basket(request.user),
+        'related_products': get_related_products(product_item)
+    }
+    return render(request, 'mainapp/product.html', content)
