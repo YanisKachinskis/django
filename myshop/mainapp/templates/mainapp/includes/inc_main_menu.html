@@ -23,11 +23,11 @@
                 </li>
                 <li>
                     <a href="{% url 'basket:basket' %}" class="basket"> {% if request.resolver_match.url_name == 'basket' %}class="active"{% endif %}
-                        {% if basket %} {{ sum_bask }} {% endif %}
+                        {% if basket %} {{ basket.0.total_quantity }} {% endif %}
 
                     </a>
                 </li>
                 <li>
-                    <p class="summa">{{ final_price }}</p>
+                    {% if basket %}<p class="summa">{{ basket.0.total_cost|floatformat:1 }}</p>{% endif %}
                 </li>
 </ul>
