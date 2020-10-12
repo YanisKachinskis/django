@@ -79,7 +79,7 @@ def user_delete(request, pk):
 
 @user_passes_test(lambda u: u.is_superuser)
 def category_create(request):
-    title = 'категории/редактирование'
+    title = 'категории/создание'
 
     if request.method == 'POST':
         category_form = ProductCategoryEditForm(request.POST, request.FILES)
@@ -111,12 +111,39 @@ def categories(request):
 
 @user_passes_test(lambda u: u.is_superuser)
 def category_update(request, pk):
-    pass
+    title = 'категории/редактирование'
+
+    category_item = get_object_or_404(ProductCategory, pk=pk)
+    if request.method == 'POST':
+        category_form = ProductCategoryEditForm(request.POST, request.FILES, instance=category_item)
+        if category_form.is_valid():
+            category_form.save()
+            return HttpResponseRedirect(reverse('admin:category_update', args=[category_item.pk]))
+    else:
+        category_form = ProductCategoryEditForm(instance=category_item)
+
+    content = {
+        'title': title,
+        'update_form': category_form,
+    }
+    return render(request, 'adminapp/category_update.html', content)
 
 
 @user_passes_test(lambda u: u.is_superuser)
 def category_delete(request, pk):
-    pass
+    title = 'категории/удаление'
+
+    category_item = get_object_or_404(ProductCategory, pk=pk)
+    if request.method == 'POST':
+        category_item.is_active = False
+        category_item.save()
+        return HttpResponseRedirect(reverse('admin:categories'))
+
+    content = {
+        'title': title,
+        'category_to_delete': category_item,
+    }
+    return render(request, 'adminapp/category_delete.html', content)
 
 
 @user_passes_test(lambda u: u.is_superuser)
