@@ -134,16 +134,22 @@ def category_delete(request, pk):
     title = 'категории/удаление'
 
     category_item = get_object_or_404(ProductCategory, pk=pk)
-    if request.method == 'POST':
-        category_item.is_active = False
-        category_item.save()
-        return HttpResponseRedirect(reverse('admin:categories'))
-
+    if category_item.is_active == True:
+        if request.method == 'POST':
+            category_item.is_active = False
+            category_item.save()
+            return HttpResponseRedirect(reverse('admin:categories'))
+    else:
+        if request.method == 'POST':
+            category_item.is_active = True
+            category_item.save()
+            return HttpResponseRedirect(reverse('admin:categories'))
     content = {
         'title': title,
         'category_to_delete': category_item,
     }
     return render(request, 'adminapp/category_delete.html', content)
+
 
 
 @user_passes_test(lambda u: u.is_superuser)

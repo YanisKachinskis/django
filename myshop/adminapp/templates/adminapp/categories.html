@@ -27,7 +27,11 @@
           </button>
           <button>
             <a href={% url 'admin:category_delete' object.pk %}>
-              удалить
+              {% if object.is_active == True %}
+                удалить
+              {% else %}
+                восстановить
+              {% endif %}
             </a>
           </button>
         </div>
@@ -37,4 +41,6 @@
       </div>
     {% endfor%}
   </div>
+
+
 {% endblock %}
