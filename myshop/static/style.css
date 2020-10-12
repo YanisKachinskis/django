@@ -1426,6 +1426,18 @@ td:first-child {
     width: 600px;
 }
 
+.container .form-horizontal{
+	margin: 0 auto;
+	min-height: 100%;
+	width: 500px;
+}
+
+.new_category_form .form-control{
+	margin: 0 auto;
+	min-height: 100%;
+	width: 500px;
+}
+
 .category_delete {
     margin: 50px auto;
     width: 600px;
@@ -1500,3 +1512,6 @@ td:first-child {
     margin-left: 25px;
     width: 300px;
 }
+
+
+
