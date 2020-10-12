@@ -4,12 +4,15 @@
 				<li><a href="{% url 'contact'%}" {% if request.resolver_match.url_name == 'contact' %}class="active"{% endif %}>контакты</a></li>
                 {% if user.is_authenticated %}
                 <li><a href="{% url 'auth:edit'%}">
-                    {% if user.first_name %}
-                        {{ user.first_name }}
-                    {% else %}
-                        Пользователь
-                    {% endif %}
+                    {{ user.first_name|default:'Пользователь' }}
                 </a></li>
+                    {% if user.is_superuser %}
+                        <li>
+                            <a href="{% url 'admin:users'%}">
+                                админка
+                            </a>
+                        </li>
+                    {% endif %}
                 <li><a href="{% url 'auth:logout'%}">
                     выход
                 </a></li>
