@@ -6,6 +6,7 @@ from django.db import models
 class ProductCategory(models.Model):
     name = models.CharField(max_length=64, unique=True, verbose_name='название категории')
     description = models.TextField(blank=True, verbose_name='описание категории')
+    is_active = models.BooleanField(default=True)
 
     class Meta:
         verbose_name = 'категория(ю)'
@@ -23,6 +24,7 @@ class Product(models.Model):
     description = models.TextField(verbose_name='описание продукта', blank=True)
     price = models.DecimalField(verbose_name='цена продукта', max_digits=8, decimal_places=2, default=0)
     quantity = models.PositiveIntegerField(verbose_name='колличество на складе', default=0)
+    is_active = models.BooleanField(default=True)
 
     class Meta:
         verbose_name = 'товар'

@@ -13,18 +13,23 @@
 	<link rel="stylesheet" type="text/css" href="{% static "style.css" %}">
 	<link rel="stylesheet" href="{% static "fonts/font-awesome/css/font-awesome.css" %}">
     {% endblock %}
+    {% block js %}
+
+    {% endblock %}
+
 </head>
 <body>
 	<div class="container">
-        <div class="header clearfix">
-			    <a href="/" class="logo"></a>
+        <a href="/" class="logo"></a>
+        <div class="login">
+            <div class="h2 text-center head">
+                Вход в систему
+            </div>
+
+            {% block content %}
+
+            {% endblock %}
         </div>
-        {% block content %}
-        {% endblock %}
-
-
-
 	</div>
-
 </body>
 </html>
