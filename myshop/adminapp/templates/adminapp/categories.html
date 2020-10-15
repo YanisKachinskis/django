@@ -9,7 +9,23 @@
       </a>
     </button>
 
-    {% for object in objects %}
+    <div class="paginator">
+          {% if page_obj.has_previous %}
+            <a href="{% url 'admin:page' page_obj.previous_page_number %}">
+                <b><<</b>
+            </a>
+          {% endif %}
+          <span class="current">
+              страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}
+          </span>
+          {% if page_obj.has_next %}
+            <a href="{% url 'admin:page' page_obj.next_page_number %}">
+              <b>>></b>
+            </a>
+          {% endif %}
+    </div>
+
+    {% for object in object_list %}
       <div class="category_record {% if not object.is_active %}not_active{% endif %}">
         <div class="category_name">
           {{ object.name|title }}
