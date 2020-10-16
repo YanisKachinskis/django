@@ -29,7 +29,11 @@
           </button>
           <button>
             <a href={% url 'admin:user_delete' object.pk %}>
-              удалить
+              {% if object.is_active == True %}
+                удалить
+              {% else %}
+                восстановить
+              {% endif %}
             </a>
           </button>
         </div>
