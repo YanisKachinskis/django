@@ -160,10 +160,18 @@ class ProductCategoryDeleteView(DeleteView):
         if self.object.is_active:
             self.object.is_active = False
             self.object.save()
+            products = Product.objects.filter(category_id=self.object.pk)
+            for product in products:
+                product.is_active = False
+                product.save()
             return HttpResponseRedirect(self.get_success_url())
         else:
             self.object.is_active = True
             self.object.save()
+            products = Product.objects.filter(category_id=self.object.pk)
+            for product in products:
+                product.is_active = True
+                product.save()
         return HttpResponseRedirect(self.get_success_url())
 
 
