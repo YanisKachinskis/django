@@ -2,6 +2,7 @@ import json
 import os
 import random
 
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import render, get_object_or_404
 
 from basketapp.models import Basket
@@ -15,12 +16,13 @@ def get_basket(user):
 
 
 def get_hot_product():
-    products_list = Product.objects.all()
+    products_list = Product.objects.filter(is_active=True, category__is_active=True)
     return random.sample(list(products_list), 1)[0]
 
 
 def get_related_products(hot_product):
-    related_products = Product.objects.filter(category_id=hot_product.category_id).exclude(pk=hot_product.pk)[:3]
+    related_products = Product.objects.filter(category_id=hot_product.category_id).exclude(pk=hot_product.pk).exclude(
+        is_active=False)[:3]
     return related_products
 
 
@@ -36,21 +38,33 @@ def main(request):
     return render(request, 'mainapp/index.html', content)
 
 
-def products(request, pk=None):
-    links_menu = ProductCategory.objects.all()
+def products(request, pk=None, page=1):
+    links_menu = ProductCategory.objects.filter(is_active=True)
 
     if pk is not None:
         if pk == 0:
-            all_products = Product.objects.all()
-            category = {'name': 'все'}
+            all_products = Product.objects.filter(is_active=True, category__is_active=True)
+            category = {
+                'pk': 0,
+                'name': 'все'
+            }
         else:
             category = get_object_or_404(ProductCategory, pk=pk)
-            all_products = Product.objects.filter(category__pk=pk).order_by('price')
+            all_products = Product.objects.filter(category__pk=pk, is_active=True, category__is_active=True).order_by(
+                'price')
+
+        paginator = Paginator(all_products, 2)
+        try:
+            products_paginator = paginator.page(page)
+        except PageNotAnInteger:
+            products_paginator = paginator.page(1)
+        except EmptyPage:
+            products_paginator = paginator.page(paginator.num_pages)
 
         content = {
             'links_menu': links_menu,
             'title': 'продукты',
-            'products': all_products,
+            'products': products_paginator,
             'category': category,
             'basket': get_basket(request.user),
         }
