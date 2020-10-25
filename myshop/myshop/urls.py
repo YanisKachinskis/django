@@ -12,6 +12,7 @@ urlpatterns = [
     path('basket/', include('basketapp.urls', namespace='basket')),
     path('contacts/', mainapp.contact, name='contact'),
     path('admin/', include('adminapp.urls', namespace='admin')),
+    path('', include('social_django.urls', namespace='social')),
 ]
 
 
