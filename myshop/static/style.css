@@ -1287,12 +1287,16 @@ td:first-child {
 	color: red;
 	font-weight: bold;
 }
+.login div.user_avatar {
+    position: fixed;
+    left: 175px;
+    top: 150px;
+}
 
 .user_avatar img {
     width: 300px;
     border-radius: 25px;
 }
-
 .user_delete {
     margin: 50px auto;
     width: 600px;
