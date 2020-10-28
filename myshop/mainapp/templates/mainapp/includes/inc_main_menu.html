@@ -3,9 +3,26 @@
 				<li><a href="{% url 'products:index' %}" {% if request.resolver_match.url_namespace == 'products' %}class="active"{% endif %}>продукты</a></li>
 				<li><a href="{% url 'contact'%}" {% if request.resolver_match.url_name == 'contact' %}class="active"{% endif %}>контакты</a></li>
                 {% if user.is_authenticated %}
-                <li><a href="{% url 'auth:edit'%}">
-                    {{ user.first_name|default:'Пользователь' }}
-                </a></li>
+                    <li>
+                        <div class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                {{ user.first_name|default:'Пользователь' }}
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                     <a href="{% url 'auth:edit'%}">
+                                        Профиль
+                                    </a>
+                                </li>
+                                <li>
+                                     <a href="{% url 'order:orders_list' %}">
+                                        Заказы
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
                     {% if user.is_superuser %}
                         <li>
                             <a href="{% url 'admin:users'%}">
@@ -26,7 +43,7 @@
                 </li>
                 <li>
                     <a href="{% url 'basket:basket' %}" class="basket"> {% if request.resolver_match.url_name == 'basket' %}class="active"{% endif %}
-                        {% if basket %} {{ basket.0.total_quantity }} {% endif %}
+                        <span>{% if basket %} {{ basket.0.total_quantity }} {% endif %}</span>
 
                     </a>
                 </li>

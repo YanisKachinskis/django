@@ -259,7 +259,6 @@ class ProductUpdateView(UpdateView):
         if category_item is not None:
             category = ProductCategory.objects.get(pk=category_item)
             context['category'] = category
-            print(context)
             return context
         return context
 
