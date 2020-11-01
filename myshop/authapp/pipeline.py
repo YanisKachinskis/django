@@ -1,8 +1,11 @@
+import urllib.request
+import os.path
 from collections import OrderedDict
 from datetime import datetime
 from urllib.parse import urlencode, urlunparse
 
 import requests
+from django.conf import settings
 from django.utils import timezone
 from social_core.exceptions import AuthForbidden
 
@@ -17,7 +20,7 @@ def save_user_profile(backend, user, response, *args, **kwargs):
                           'api.vk.com',
                           '/method/users.get',
                           None,
-                          urlencode(OrderedDict(fields=','.join(('bdate', 'sex', 'about', 'photo_200')),
+                          urlencode(OrderedDict(fields=','.join(('bdate', 'sex', 'about', 'photo_max_orig')),
                                                 access_token=response['access_token'],
                                                 v='5.92')),
                           None
@@ -45,7 +48,9 @@ def save_user_profile(backend, user, response, *args, **kwargs):
         else:
             user.age = age
 
-    if data['photo_200']:
-       user.avatar = data['photo_200']
+    if data['photo_max_orig']:
+        urllib.request.urlretrieve(data['photo_max_orig'],
+                                   os.path.join(f'{settings.MEDIA_ROOT}', 'users_avatars', f'{user.pk}.jpg'))
+        user.avatar = f"users_avatars/{user.pk}.jpg"
 
     user.save()
