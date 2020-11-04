@@ -1,0 +1,17 @@
+{% extends 'mainapp/base.html' %}
+{% load static %}
+{% block menu%}
+	<div class="hero">
+		<div class="header clearfix">
+			<a href="/" class="logo"></a>
+			{% include 'mainapp/includes/inc_main_menu.html' %}
+		</div>
+		<h1>наши контакты</h1>
+	</div>
+{% endblock %}
+{% block content %}
+	{% include 'mainapp/includes/inc_shops.html' %}
+
+	<div class="clr"></div>
+
+{% endblock %}

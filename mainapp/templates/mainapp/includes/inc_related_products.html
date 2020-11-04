@@ -1,0 +1,20 @@
+{% load static %}
+<div class="related-products clearfix">
+
+    {% for product in related_products %}
+    <div class="block">
+        <a href="{% url 'products:product' product.pk %}"><img src="/media/{{ product.image }}" alt="product.short_desc">
+            <div class="text">
+                <img src="{% static 'img/icon-hover.png' %}" alt="hover">
+                <h3>Категория: {{ product.category.name|title }}</h3>
+                <h4>Название: {{ product.name }}</h4>
+                <p>Описание: {{ product.description }}</p>
+                <p>Цена: {{ product.price }}</p>
+                <p>На складе: {{ product.quantity }}</p>
+
+            </div>
+        </a>
+    </div>
+    {% endfor %}
+</div>
+

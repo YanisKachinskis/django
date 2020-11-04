@@ -1,0 +1,15 @@
+<ul class="links-menu">
+    <li>
+        <a href="{% url 'products:category' 0 %}">
+            все
+        </a>
+    </li>
+    {% for item in links_menu %}
+        {% if item.is_active == True %}
+        <li><a href="{% url 'products:category' item.pk %}"
+                {% if request.resolver_match.kwargs.pk == item.pk %}class="active"{% endif %}
+        >{{ item.name }}</a></li>
+        {% endif %}
+    {% endfor %}
+
+</ul>

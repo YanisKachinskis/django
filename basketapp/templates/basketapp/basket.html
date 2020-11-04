@@ -1,0 +1,16 @@
+{% extends 'basketapp/base.html' %}
+{% load static %}
+
+{% block content %}
+  <div class="basket_list">
+    {% include 'basketapp/includes/inc_basket_list.html' %}
+  </div>
+  {% if basket_items %}
+      <button class="btn btn-round">
+          <a href="{% url 'order:order_create' %}">создать заказ</a>
+      </button>
+  {% endif %}
+      <button class="btn btn-round">
+          <a href="{% url 'main' %}">на главную</a>
+      </button>
+{% endblock %}
