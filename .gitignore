@@ -1,1 +1,11 @@
-/myshop/django_2.2
+django_2.2/
+.idea
+*.pyc
+__pycache__
+db.sqlite2
+media/
+project/settings.py
+.DS_Store
+venv
+env
+./.env
