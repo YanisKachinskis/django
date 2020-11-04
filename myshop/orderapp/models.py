@@ -10,7 +10,6 @@ class Order(models.Model):
     PROCEEDED = 'PRD'
     PAID = 'PD'
     READY = 'RD'
-    DONE = 'DN'
     CANCEL = 'CNC'
 
     ORDER_STATUSES = (
@@ -19,7 +18,6 @@ class Order(models.Model):
         (PAID, 'оплачен'),
         (PROCEEDED, 'обрабатывается'),
         (READY, 'готов к выдаче'),
-        (DONE, 'выдан'),
         (CANCEL, 'отменен'),
     )
 
@@ -58,13 +56,32 @@ class Order(models.Model):
         self.save()
 
 
+# class OrderItemQuerySet(models.QuerySet):
+#
+#     def delete(self, *args, **kwargs):
+#         for object in self:
+#             object.product.quantity += object.quantity
+#             object.product.save()
+#         super(OrderItemQuerySet, self).delete()
+
+
 class OrderItem(models.Model):
+    #object = OrderItemQuerySet.as_manager()
+
     order = models.ForeignKey(Order, related_name='orderitems', on_delete=models.CASCADE, verbose_name='заказ')
     product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name='продукт')
     quantity = models.PositiveSmallIntegerField(default=0, verbose_name='количество')
 
     def get_product_cost(self):
         return self.product.price * self.quantity
+
+    @staticmethod
+    def get_item(pk):
+        return OrderItem.objects.get(pk=pk)
+
+    # def delete(self):
+    #     self.product.quantity += self.quantity
+    #     self.product.save()
 
 
 

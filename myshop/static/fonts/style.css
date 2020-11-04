@@ -79,7 +79,7 @@ html, body {
 	background-image: url(img/search.png);
 	position: absolute;
 	top: 63px;
-	left: 1170px;
+	left: 930px;
 }
 
 .clearfix:after {
@@ -1169,14 +1169,15 @@ td:first-child {
 	background-repeat: no-repeat;
 	position: absolute;
 	top: 63px;
-	left: 1160px;
+	left: 970px;
 	text-decoration: none;
 	color: #555;
 }
 
 .basket span {
-	position: absolute;
-	left: 20px;
+	display: block;
+    margin-left: 10px;
+    width: 5px;
 }
 
 .basket_container {
@@ -1215,9 +1216,17 @@ td:first-child {
     float: left;
 }
 
+.basket_list span.product_quantitiy {
+    margin-left: 1em;
+    width: 5em;
+    position: relative;
+    display: block;
+    float: left;
+}
+
 .basket_list span.product_cost {
     margin-left: 1em;
-    width: 7em;
+    width: 10em;
     position: relative;
     display: block;
     float: left;
@@ -1228,7 +1237,6 @@ td:first-child {
     display: block;
     height: 170px;
     float: none;
-}
 
 .basket_container .head {
     margin: 25px auto;
@@ -1275,7 +1283,7 @@ td:first-child {
 	background-repeat: no-repeat;
 	position: absolute;
 	top: 63px;
-	left: 1120px;
+	left: 930px;
 	text-decoration: none;
 	color: #555;
 }
@@ -1287,7 +1295,7 @@ td:first-child {
 	background-repeat: no-repeat;
 	position: absolute;
 	top: 67px;
-	left: 1190px;
+	left: 1010px;
 	text-decoration: none;
 	color: red;
 	font-weight: bold;
@@ -1678,6 +1686,34 @@ td:first-child {
     text-decoration: none;
 }
 
+.button-order {
+	background-color:  #ffffff;
+	box-shadow: 0px 2px 4.85px 0.15px rgba(33, 33, 33, 0.35);
+	width: 212px;
+	height: 45px;
+	display: block;
+	text-transform: uppercase;
+	text-align: center;
+	border-radius: 22px;
+	text-decoration: none;
+	color:  #212121;
+	font-size: 17px;
+	font-weight: 700;
+	line-height: 45px;
+	margin-top: 32px; 
+	letter-spacing: 3px;
+}
+.button-order:hover {
+	box-shadow: none;
+}
+.button-order:active {
+	box-shadow: none;
+	margin-top: 35px;
+}
+.button-order img{
+	padding-left: 22px;
+}
+
 .order_container {
     margin: 25px auto;
     width: 900px;
@@ -1694,3 +1730,36 @@ td:first-child {
     width: 150px;
     border-radius: 25px;
 }
+
+.table.orders_list {
+    min-width: 600px;
+}
+
+.td1.orders_list {
+    width: 40px;
+}
+
+.table.order.formset {
+    min-width: 400px;
+}
+
+.td1.order.formset_td {
+    /*width: 70%;*/
+}
+
+.td2.order.formset_td {
+    /*width: 50px;*/
+}
+
+.td3.order.formset_td {
+    /*width: 50px;*/
+    text-align: center;
+}
+
+.td4.order.formset_td {
+    /*width: 50px;*/
+    text-align: center;
+}
+
+
+

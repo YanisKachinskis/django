@@ -3,7 +3,7 @@
 
 {% block content %}
     <div class="user_avatar"><img src=
-        {% if user.is_authenticated and not backends.associated %}
+        {% if user.is_authenticated %}
             "/media/{{ user.avatar }}"
         {% else %}
             "{{ user.avatar }}"
