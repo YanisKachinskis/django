@@ -2,7 +2,7 @@ django_2.2/
 .idea
 *.pyc
 __pycache__
-db.sqlite2
+db.sqlite3
 media/
 project/settings.py
 .DS_Store
