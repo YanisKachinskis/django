@@ -40,7 +40,7 @@ class Product(models.Model):
 
 class Shop(models.Model):
     city = models.CharField(verbose_name='город', max_length=64)
-    phone = models.PositiveSmallIntegerField(verbose_name='телефон')
+    phone = models.CharField(verbose_name='телефон', max_length=64)
     email = models.CharField(verbose_name='адрес электронной почты', max_length=64)
     address = models.CharField(verbose_name='адрес', max_length=128)
 
