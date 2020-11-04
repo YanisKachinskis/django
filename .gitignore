@@ -9,3 +9,4 @@ project/settings.py
 venv
 env
 ./.env
+run.bat
