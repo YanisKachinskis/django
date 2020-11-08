@@ -16,7 +16,7 @@ from mainapp.models import *
 
 
 def get_hot_product():
-    products_list = Product.objects.filter(is_active=True, category__is_active=True)
+    products_list = Product.objects.filter(is_active=True, category__is_active=True).select_related('category')
     return random.sample(list(products_list), 1)[0]
 
 
