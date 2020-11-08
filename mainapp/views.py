@@ -21,8 +21,8 @@ def get_hot_product():
 
 
 def get_related_products(hot_product):
-    related_products = Product.objects.filter(category_id=hot_product.category_id).exclude(pk=hot_product.pk).exclude(
-        is_active=False)[:3]
+    related_products = Product.objects.filter(category_id=hot_product.category_id).exclude(pk=hot_product.pk).\
+                           exclude(is_active=False).select_related('category')[:3]
     return related_products
 
 
