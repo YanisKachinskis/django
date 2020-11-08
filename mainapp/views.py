@@ -32,7 +32,7 @@ def main(request):
     content = {
         'slogan': slogan,
         'title': 'главная',
-        'products_list': Product.objects.filter(is_active=True, category__is_active__in=True).select_related('category')[:3]
+        'products_list': Product.objects.filter(is_active=True, category__is_active=True).select_related('category')[:3]
     }
     return render(request, 'mainapp/index.html', content)
 
