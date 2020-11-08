@@ -77,7 +77,7 @@ window.onload = function () {
    }
     }
 
-    $('.order_form select').change(function () {
+    $('.order_form').on('change', 'select', function () {
        var target = event.target;
        orderitem_num = parseInt(target.name.replace('orderitems-', '').replace('-product', ''));
        var orderitem_product_pk = target.options[target.selectedIndex].value;
