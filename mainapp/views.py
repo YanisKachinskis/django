@@ -40,8 +40,20 @@ def get_category(pk):
         return get_object_or_404(ProductCategory, pk=pk)
 
 
+def get_products():
+    if settings.LOW_CACHE:
+        key = 'products'
+        products = cache.get(key)
+        if products is None:
+            products = Product.objects.filter(is_active=True, category__is_active=True).select_related('category')
+            cache.set(key, products)
+        return products
+    else:
+        return Product.objects.filter(is_active=True, category__is_active=True).select_related('category')
+
+
 def get_hot_product():
-    products_list = Product.objects.filter(is_active=True, category__is_active=True).select_related('category')
+    products_list = get_products()
     return random.sample(list(products_list), 1)[0]
 
 
