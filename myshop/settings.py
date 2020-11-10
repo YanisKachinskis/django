@@ -15,7 +15,6 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
@@ -26,7 +25,6 @@ SECRET_KEY = 'ozx7yvjpqs&k0y@@mlg1iqfs8$5!r*d30_#7&hvjfiyxwr)hmo'
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
-
 
 # Application definition
 
@@ -61,29 +59,30 @@ MIDDLEWARE = [
 ]
 
 if DEBUG:
-   def show_toolbar(request):
-       return True
+    def show_toolbar(request):
+        return True
 
-   DEBUG_TOOLBAR_CONFIG = {
-       'SHOW_TOOLBAR_CALLBACK': show_toolbar,
-   }
 
-   DEBUG_TOOLBAR_PANELS = [
-       'debug_toolbar.panels.versions.VersionsPanel',
-       'debug_toolbar.panels.timer.TimerPanel',
-       'debug_toolbar.panels.settings.SettingsPanel',
-       'debug_toolbar.panels.headers.HeadersPanel',
-       'debug_toolbar.panels.request.RequestPanel',
-       'debug_toolbar.panels.sql.SQLPanel',
-       'debug_toolbar.panels.templates.TemplatesPanel',
-       'debug_toolbar.panels.staticfiles.StaticFilesPanel',
-       'debug_toolbar.panels.cache.CachePanel',
-       'debug_toolbar.panels.signals.SignalsPanel',
-       'debug_toolbar.panels.logging.LoggingPanel',
-       'debug_toolbar.panels.redirects.RedirectsPanel',
-       'debug_toolbar.panels.profiling.ProfilingPanel',
-       'template_profiler_panel.panels.template.TemplateProfilerPanel',
-   ]
+    DEBUG_TOOLBAR_CONFIG = {
+        'SHOW_TOOLBAR_CALLBACK': show_toolbar,
+    }
+
+    DEBUG_TOOLBAR_PANELS = [
+        'debug_toolbar.panels.versions.VersionsPanel',
+        'debug_toolbar.panels.timer.TimerPanel',
+        'debug_toolbar.panels.settings.SettingsPanel',
+        'debug_toolbar.panels.headers.HeadersPanel',
+        'debug_toolbar.panels.request.RequestPanel',
+        'debug_toolbar.panels.sql.SQLPanel',
+        'debug_toolbar.panels.templates.TemplatesPanel',
+        'debug_toolbar.panels.staticfiles.StaticFilesPanel',
+        'debug_toolbar.panels.cache.CachePanel',
+        'debug_toolbar.panels.signals.SignalsPanel',
+        'debug_toolbar.panels.logging.LoggingPanel',
+        'debug_toolbar.panels.redirects.RedirectsPanel',
+        'debug_toolbar.panels.profiling.ProfilingPanel',
+        'template_profiler_panel.panels.template.TemplateProfilerPanel',
+    ]
 
 ROOT_URLCONF = 'myshop.urls'
 
@@ -125,7 +124,6 @@ DATABASES = {
     }
 }
 
-
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
 
@@ -144,7 +142,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
@@ -157,7 +154,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
@@ -193,7 +189,7 @@ EMAIL_USE_SSL = False
 # EMAIL_USE_SSL = True
 
 # вариант python -m smtpd -n -c DebuggingServer localhost:25
-#EMAIL_HOST_USER, EMAIL_HOST_PASSWORD = None, None
+# EMAIL_HOST_USER, EMAIL_HOST_PASSWORD = None, None
 
 # вариант логирования сообщений почты в виде файлов вместо отправки
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
@@ -225,3 +221,17 @@ SOCIAL_AUTH_PIPELINE = (
     'social_core.pipeline.social_auth.load_extra_data',
     'social_core.pipeline.user.user_details',
 )
+
+if os.name == 'posix':
+    CACHE_MIDDLEWARE_ALIAS = 'default'
+    CACHE_MIDDLEWARE_SECONDS = 120
+    CACHE_MIDDLEWARE_KEY_PREFIX = 'myshop'
+
+    CACHES = {
+        'default': {
+            'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+            'LOCATION': '127.0.0.1:11211',
+        }
+    }
+
+LOW_CACHE = True
