@@ -154,10 +154,17 @@ def products(request, pk=None, page=1):
 
 
 def contact(request):
-    shop_list = Shop.objects.all()
+    if settings.LOW_CACHE:
+        key = f'locations'
+        locations = cache.get(key)
+        if locations is None:
+            locations = Shop.objects.all()
+            cache.set(key, locations)
+    else:
+        locations = Shop.objects.all()
     content = {
         'title': 'контакты',
-        'shop_list': shop_list,
+        'shop_list': locations,
     }
     return render(request, 'mainapp/contact.html', content)
 
