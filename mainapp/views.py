@@ -27,13 +27,26 @@ def get_links_menu():
     else:
         return ProductCategory.objects.filter(is_active=True)
 
+
+def get_category(pk):
+    if settings.LOW_CACHE:
+        key = f'category_{pk}'
+        category = cache.get(key)
+        if category is None:
+            category = get_object_or_404(ProductCategory, pk=pk)
+            cache.set(key, category)
+        return category
+    else:
+        return get_object_or_404(ProductCategory, pk=pk)
+
+
 def get_hot_product():
     products_list = Product.objects.filter(is_active=True, category__is_active=True).select_related('category')
     return random.sample(list(products_list), 1)[0]
 
 
 def get_related_products(hot_product):
-    related_products = Product.objects.filter(category_id=hot_product.category_id).exclude(pk=hot_product.pk).\
+    related_products = Product.objects.filter(category_id=hot_product.category_id).exclude(pk=hot_product.pk). \
                            exclude(is_active=False).select_related('category')[:3]
     return related_products
 
@@ -60,7 +73,7 @@ def products(request, pk=None, page=1):
                 'name': 'все'
             }
         else:
-            category = get_object_or_404(ProductCategory, pk=pk)
+            category = get_category(pk)
             all_products = Product.objects.filter(category__pk=pk, is_active=True, category__is_active=True).order_by(
                 'price')
 
