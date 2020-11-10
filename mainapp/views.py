@@ -158,10 +158,10 @@ def contact(request):
         key = f'locations'
         locations = cache.get(key)
         if locations is None:
-            locations = Shop.objects.all()
+            locations = Shop.objects.all().order_by('city')
             cache.set(key, locations)
     else:
-        locations = Shop.objects.all()
+        locations = Shop.objects.all().order_by('city')
     content = {
         'title': 'контакты',
         'shop_list': locations,
